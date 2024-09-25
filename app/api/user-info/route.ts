@@ -58,6 +58,7 @@ export async function GET(request: NextRequest) {
         productId: pantryItem.productId,
         name: product.name,  // Ürünün adı
         unit: product.unit,  // Ürünün birimi
+        img_url: product.img_url,
         quantity: pantryItem.quantity // Kullanıcının sahip olduğu miktar
       };
     }).filter(item => item !== null); // Geçersiz öğeleri filtrele

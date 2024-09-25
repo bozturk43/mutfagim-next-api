@@ -4,6 +4,7 @@ export interface IProduct{
     name: string;
     category: string;
     unit:string;
+    img_url:string;
   }
   
   export class Product implements IProduct {
@@ -11,7 +12,8 @@ export interface IProduct{
       public id:string,
       public name: string,
       public category: string,
-      public unit:string
+      public unit:string,
+      public img_url:string
     ) {}
   }
   
