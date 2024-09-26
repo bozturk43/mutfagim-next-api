@@ -36,5 +36,5 @@ export async function middleware(request: NextRequest) {
 }
 // Hangi yolların bu middleware'i kullanacağını tanımla
 export const config = {
-  matcher: ['/api/user-info','/api/all-products','/api/add-to-pantry'],
+  matcher: ['/api/user-info','/api/all-products','/api/add-to-pantry','/api/update-pantry','/api/delete-from-pantry'],
 };
