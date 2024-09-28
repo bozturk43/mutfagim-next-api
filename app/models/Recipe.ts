@@ -4,6 +4,7 @@ export interface IRecipe{
     id:string;
     name: string;
     description: string;
+    img_url:string;
     ingredients:Ingredients[];
   }
   export interface IIngredients{
@@ -17,6 +18,7 @@ export interface IRecipe{
       public id:string,
       public name: string,
       public description: string,
+      public img_url:string,
       public ingredients:Ingredients[],
     ) {}
   }
