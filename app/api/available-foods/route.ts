@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
     console.log(products);
 
     const matchingRecipes: Recipe[] = [];
-    const unavailableRecipes: { id: string; name: string; img_url:string; description: string; missingIngredients: { productId: string; name: string }[] }[] = [];
+    const unavailableRecipes: Recipe[] = [];
 
     // Firestore'dan çekilen her bir recipe üzerinde işlemleri yap
     recipeDocs.forEach(doc => {
@@ -59,6 +59,7 @@ export async function GET(request: NextRequest) {
                 doc.id,
                 recipeData.name,
                 recipeData.description,
+                recipeData.categoryId,
                 recipeData.img_url,
                 recipeIngredients
             );
@@ -81,7 +82,9 @@ export async function GET(request: NextRequest) {
                     id: doc.id,
                     name: recipeData.name,
                     description: recipeData.description,
+                    categoryId:recipeData.categoryId,
                     img_url:recipeData.img_url,
+                    ingredients:recipeData.ingredients,
                     missingIngredients: missingIngredients
                 });
             }

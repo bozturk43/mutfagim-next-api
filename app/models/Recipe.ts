@@ -4,8 +4,10 @@ export interface IRecipe{
     id:string;
     name: string;
     description: string;
+    categoryId:string;
     img_url:string;
     ingredients:Ingredients[];
+    missingIngredients?:Ingredients[];
   }
   export interface IIngredients{
     con_id:string;
@@ -18,8 +20,10 @@ export interface IRecipe{
       public id:string,
       public name: string,
       public description: string,
+      public categoryId:string,
       public img_url:string,
       public ingredients:Ingredients[],
+      public missingIngredients?:Ingredients[]
     ) {}
   }
 
