@@ -4,10 +4,11 @@ export interface IRecipe{
     id:string;
     name: string;
     description: string;
+    recipe_instructions:string;
     categoryId:string;
     img_url:string;
     ingredients:Ingredients[];
-    missingIngredients?:Ingredients[];
+    missingIngredients?:Ingredients[] | null;
   }
   export interface IIngredients{
     con_id:string;
@@ -20,10 +21,11 @@ export interface IRecipe{
       public id:string,
       public name: string,
       public description: string,
+      public recipe_instructions:string,
       public categoryId:string,
       public img_url:string,
       public ingredients:Ingredients[],
-      public missingIngredients?:Ingredients[]
+      public missingIngredients?:Ingredients[] | null
     ) {}
   }
 

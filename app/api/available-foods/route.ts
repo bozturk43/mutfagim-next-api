@@ -59,6 +59,7 @@ export async function GET(request: NextRequest) {
                 doc.id,
                 recipeData.name,
                 recipeData.description,
+                recipeData.recipe_instructions,
                 recipeData.categoryId,
                 recipeData.img_url,
                 recipeIngredients
@@ -82,6 +83,7 @@ export async function GET(request: NextRequest) {
                     id: doc.id,
                     name: recipeData.name,
                     description: recipeData.description,
+                    recipe_instructions:recipeData.recipe_instructions,
                     categoryId:recipeData.categoryId,
                     img_url:recipeData.img_url,
                     ingredients:recipeData.ingredients,

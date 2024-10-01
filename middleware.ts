@@ -43,6 +43,7 @@ export const config = {
     '/api/update-pantry',
     '/api/delete-from-pantry',
     '/api/available-foods',
-    '/api/get-categories'
+    '/api/get-categories',
+    '/api/get-recipe-by-id'
   ],
 };
