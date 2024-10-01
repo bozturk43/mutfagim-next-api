@@ -1,10 +1,10 @@
 // app/api/products/route.ts
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { db } from '../../../lib/firebase'; // Firebase yapılandırmanız
 import { collection, addDoc } from 'firebase/firestore';
 
 // POST isteği ile ürün ekleme
-export async function POST(request: NextRequest) {
+export async function POST() {
     const products = [
         {
             "id": "xYz12345",

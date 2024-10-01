@@ -1,5 +1,3 @@
-import { Product } from "./Product";
-
 export interface IRecipe{
     id:string;
     name: string;

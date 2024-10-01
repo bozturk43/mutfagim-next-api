@@ -1,3 +1,6 @@
 {
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off" // any kullanımına izin ver
+  },
   "extends": ["next/core-web-vitals", "next/typescript"]
 }

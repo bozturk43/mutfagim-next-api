@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
     // Mevcut items'ı al
     const pantryData = pantryDoc.data();
-    let items = pantryData.items || [];
+    const items = pantryData.items || [];
 
     // Mevcut productId'yi bul
     const existingItemIndex = items.findIndex((item: any) => item.productId === productId);

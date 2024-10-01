@@ -1,9 +1,7 @@
 // app/api/login/route.js
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '../../lib/firebase';
-import { collection, query, where, getDocs,doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { User } from '@/app/models/User';
-import { SignJWT } from 'jose';
+import {doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 
 export async function POST(request: NextRequest) {
     const userPayload = request.headers.get('x-user-payload');
@@ -13,8 +11,6 @@ export async function POST(request: NextRequest) {
     }
     const { id } = JSON.parse(userPayload);
     const body = await request.json();
-    console.log(body); // Body verilerini konsola yazdır
-    console.log(id);
     const { productId, quantity } = body; // productId ve quantity'i al
     const pantryRef = doc(db, 'userPantries', id);
     const pantryDoc = await getDoc(pantryRef);

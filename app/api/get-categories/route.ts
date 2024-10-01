@@ -1,7 +1,5 @@
-// app/api/user-pantry/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { collection, getDocs } from 'firebase/firestore';
-import { Product } from '@/app/models/Product';
 import { db } from '@/app/lib/firebase';
 import { FoodCategory } from '@/app/models/FoodCategory';
 
