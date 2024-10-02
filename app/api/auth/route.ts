@@ -27,6 +27,7 @@ export async function POST(request: NextRequest) {
     const userData: User = {
       id: userDoc.id,
       name: data.name,
+      img_url:data.img_url,
       age: data.age,
       email: data.email
     };

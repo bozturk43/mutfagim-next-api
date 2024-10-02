@@ -2,6 +2,7 @@
 export interface IUser {
     id: string;
     name: string;
+    img_url:string;
     age:number;
     email: string;
   }
@@ -10,6 +11,7 @@ export interface IUser {
     constructor(
       public id: string,
       public name: string,
+      public img_url:string,
       public age:number,
       public email: string,
     ) {}
