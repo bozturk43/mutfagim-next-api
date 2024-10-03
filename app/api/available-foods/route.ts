@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '../../lib/firebase';
+import { db, storage } from '../../lib/firebase';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { PantryItem } from '@/app/models/PantryItem';
 import { Ingredients, Recipe } from '@/app/models/Recipe';
 import { Product } from '@/app/models/Product';
+import { getDownloadURL, ref } from 'firebase/storage';
 
 export async function GET(request: NextRequest) {
     const userPayload = request.headers.get('x-user-payload');
@@ -29,6 +30,32 @@ export async function GET(request: NextRequest) {
     const recipesRef = collection(db, 'recipes');
     const recipeDocs = await getDocs(recipesRef);
 
+    // Resim URL'lerini alma işlemi
+    const recipeList: Recipe[] = await Promise.all(recipeDocs.docs.map(async (doc) => {
+        const recipeData = doc.data();
+        
+        // Storage'dan img_url alma işlemi
+        let img_url = '';
+        try {
+            const imageRef = ref(storage, `recipe_images/${doc.id}.jpg`);
+            img_url = await getDownloadURL(imageRef); // Resmin download URL'sini al
+        } catch (error) {
+            console.error(`Resim URL'si alınırken hata oluştu: ${doc.id}`, error);
+            img_url = ""; // Eğer resim yoksa null olarak döndür
+        }
+    
+        // Recipe objesini döndür
+        return {
+            id: doc.id,  // Firestore'dan gelen recipe ID
+            name: recipeData.name,
+            description: recipeData.description,
+            recipe_instructions: recipeData.recipe_instructions,
+            categoryId: recipeData.categoryId,
+            img_url: img_url,  // Yukarıda alınan img_url
+            ingredients: recipeData.ingredients  // Diğer recipe verileri
+        } as Recipe;  // Recipe tipinde döndür
+    }));
+
     // Ürünleri almak için products koleksiyonunu çek
     const productsRef = collection(db, 'produtcs');
     const productDocs = await getDocs(productsRef);
@@ -37,14 +64,12 @@ export async function GET(request: NextRequest) {
         return acc;
     }, {});
 
-    console.log(products);
-
     const matchingRecipes: Recipe[] = [];
     const unavailableRecipes: Recipe[] = [];
 
     // Firestore'dan çekilen her bir recipe üzerinde işlemleri yap
-    recipeDocs.forEach(doc => {
-        const recipeData = doc.data();
+    recipeList.forEach(doc => {
+        const recipeData = {...doc}
         const recipeIngredients = recipeData.ingredients;
 
         // Kullanıcının dolabındaki ürünlerle eşleşen tarifleri kontrol et
@@ -70,12 +95,15 @@ export async function GET(request: NextRequest) {
             const missingIngredients = recipeIngredients.filter((ingredient: Ingredients) => {
                 return !pantryProductIds.includes(ingredient.productId);
             }).map((ingredient: Ingredients) => {
-                const product:Product = products[ingredient.productId];
-                console.log(product);
+                const product: Product = products[ingredient.productId];
+            
+                // Ürün adı yoksa varsayılan değer veriyoruz, diğer alanlar ise Ingredient tipine uygun şekilde dolduruluyor
                 return {
                     productId: ingredient.productId,
-                    name: product ? product.name : 'Bilinmiyor', // Ürün adı alınamıyorsa varsayılan bir değer
-                };
+                    name: product ? product.name : 'Bilinmiyor',
+                    con_id: ingredient.con_id, // Ingredient'den alıyoruz
+                    quantity: ingredient.quantity // Ingredient'den alıyoruz
+                } as Ingredients; // Ingredients tipine uygun döndürüyoruz
             });
 
             if (missingIngredients.length > 0) {

@@ -4,7 +4,7 @@ export interface IProduct{
     name: string;
     category: string;
     unit:string;
-    img_url:string;
+    img_url:string |null;
   }
   
   export class Product implements IProduct {
@@ -13,7 +13,7 @@ export interface IProduct{
       public name: string,
       public category: string,
       public unit:string,
-      public img_url:string
+      public img_url:string|null
     ) {}
   }
   

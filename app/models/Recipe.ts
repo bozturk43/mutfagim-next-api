@@ -4,7 +4,7 @@ export interface IRecipe{
     description: string;
     recipe_instructions:string;
     categoryId:string;
-    img_url:string;
+    img_url:string | null;
     ingredients:Ingredients[];
     missingIngredients?:Ingredients[] | null;
   }
@@ -21,7 +21,7 @@ export interface IRecipe{
       public description: string,
       public recipe_instructions:string,
       public categoryId:string,
-      public img_url:string,
+      public img_url:string | null,
       public ingredients:Ingredients[],
       public missingIngredients?:Ingredients[] | null
     ) {}

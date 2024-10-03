@@ -1,6 +1,6 @@
 // app/api/login/route.js
 import { NextRequest } from 'next/server';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { db,auth } from '../../lib/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { User } from '@/app/models/User';

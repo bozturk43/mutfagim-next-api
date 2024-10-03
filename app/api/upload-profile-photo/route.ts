@@ -13,7 +13,6 @@ export async function POST(request: NextRequest) {
 
     const { id } = JSON.parse(userPayload);  // Kullanıcı ID'yi payload'dan alıyoruz
     const body = await request.json();
-    console.log("Request Body",body);
     let { base64Image } = body;  // Fotoğraf base64 formatında gelecek
 
     if (!base64Image) {
