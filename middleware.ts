@@ -45,6 +45,7 @@ export const config = {
     '/api/available-foods',
     '/api/get-categories',
     '/api/get-recipe-by-id',
-    '/api/upload-profile-photo'
+    '/api/upload-profile-photo',
+    '/api/admin/home-info'
   ],
 };
