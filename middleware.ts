@@ -12,6 +12,11 @@ interface UserPayload extends JWTPayload {
 }
 
 export async function middleware(request: NextRequest) {
+    // OPTIONS isteği CORS preflight check için kullanılır, burada preflight için gelen OPTIONS isteklerini header eklemeden devam ettirdik.
+    if (request.method === 'OPTIONS') {
+      return NextResponse.next();
+    }
+
   const authHeader = request.headers.get('Authorization');
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -47,5 +52,6 @@ export const config = {
     '/api/get-recipe-by-id',
     '/api/upload-profile-photo',
     '/api/admin/home-info'
+    
   ],
 };

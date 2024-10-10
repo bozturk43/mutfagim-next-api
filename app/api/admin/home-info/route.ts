@@ -9,11 +9,11 @@ import { db } from '@/app/lib/firebase';
 import { ConversationName } from '@/app/models/ConversationName';
 
 export async function GET(request: NextRequest) {
-  const userPayload = request.headers.get('x-user-payload');
+  // const userPayload = request.headers.get('x-user-payload');
 
-  if (!userPayload) {
-    return NextResponse.json({ error: 'Kullanıcı bilgileri bulunamadı!' }, { status: 403 });
-  }
+  // if (!userPayload) {
+  //   return NextResponse.json({ error: 'Kullanıcı bilgileri bulunamadı!' }, { status: 403 });
+  // }
 
   try {
     // Koleksiyon referansları
@@ -29,11 +29,7 @@ export async function GET(request: NextRequest) {
       const collectionRef = collection(db, collectionInfo.name);
       const snapshot = await getDocs(collectionRef);
       const count = snapshot.size; // Kayıt sayısı
-
-      // İlk 10 kaydı almak için sorgu oluştur
-      const limitedQuery = query(collectionRef, limit(10));
-      const limitedSnapshot = await getDocs(limitedQuery);
-      const records = limitedSnapshot.docs.map(doc => ({
+      const records = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data() as any // Modelinize göre değiştirin
       }));
@@ -55,3 +51,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Veri getirilemedi!' }, { status: 500 });
   }
 }
+
+
+// export const OPTIONS = async (request: NextRequest) => {
+//   return new NextResponse('', {
+//     status: 200
+//   })
+// }
