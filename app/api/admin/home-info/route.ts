@@ -1,6 +1,6 @@
 // app/api/user-pantry/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { collection, getDocs, query, limit } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { Product } from '@/app/models/Product';
 import { Recipe } from '@/app/models/Recipe'; // Eğer Recipe modeliniz yoksa, buna göre düzenleyin
 import { User } from '@/app/models/User'; // Eğer User modeliniz yoksa, buna göre düzenleyin
@@ -9,11 +9,11 @@ import { db } from '@/app/lib/firebase';
 import { ConversationName } from '@/app/models/ConversationName';
 
 export async function GET(request: NextRequest) {
-  // const userPayload = request.headers.get('x-user-payload');
+  const userPayload = request.headers.get('x-user-payload');
 
-  // if (!userPayload) {
-  //   return NextResponse.json({ error: 'Kullanıcı bilgileri bulunamadı!' }, { status: 403 });
-  // }
+  if (!userPayload) {
+    return NextResponse.json({ error: 'Kullanıcı bilgileri bulunamadı!' }, { status: 403 });
+  }
 
   try {
     // Koleksiyon referansları
@@ -51,10 +51,3 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Veri getirilemedi!' }, { status: 500 });
   }
 }
-
-
-// export const OPTIONS = async (request: NextRequest) => {
-//   return new NextResponse('', {
-//     status: 200
-//   })
-// }
