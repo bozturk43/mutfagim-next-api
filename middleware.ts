@@ -56,7 +56,10 @@ export const config = {
     '/api/get-categories',
     '/api/get-recipe-by-id',
     '/api/upload-profile-photo',
-    '/api/admin/home-info'
+    '/api/admin/home-info',
+    '/api/admin/update-product',
+    '/api/lovs/get-lovs',
+
     
   ],
 };
