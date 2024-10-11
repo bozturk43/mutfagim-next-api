@@ -37,8 +37,20 @@ export async function GET(request: NextRequest) {
         name:itemData.name
       }
     })
+    const prdConvListRef = collection(db,"conversationNames");
+    const prdConvListSnapshot = await getDocs(prdConvListRef);
+    if (prdConvListSnapshot.empty) {
+      return NextResponse.json({ unitTypes: [] });
+    }
+    const conversationTypes:Lov[] = prdConvListSnapshot.docs.map((doc)=>{
+      const itemData = doc.data();
+      return{
+        id:doc.id,
+        name:itemData.con_name
+      }
+    })
 
-    return NextResponse.json({ productCategories,unitTypes });
+    return NextResponse.json({ productCategories,unitTypes,conversationTypes });
 
   } catch (error) {
     console.error('Error fetching pantry items:', error);

@@ -58,6 +58,8 @@ export const config = {
     '/api/upload-profile-photo',
     '/api/admin/home-info',
     '/api/admin/update-product',
+    '/api/admin/delete-product',
+    '/api/admin/add-product',
     '/api/lovs/get-lovs',
 
     
